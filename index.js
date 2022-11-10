@@ -29,7 +29,14 @@ const exampleNetworks = require("./bike-networks");
       // ...
     ];
  */
-function getAllBikeNetworkNames() {}
+function getAllBikeNetworkNames(networks) {
+  const names = [];
+  for (let i = 0; i < networks.length; i++) {
+    names.push(networks[i].name)
+  }
+
+  return names;
+}
 
 /**
  * getAllBikeNetworksInTheUS()
@@ -37,11 +44,11 @@ function getAllBikeNetworkNames() {}
  * Returns an array of all networks located in the United States (i.e. "US"). If there are no networks in the "US" or the input is empty, return an empty array.
  * @param {Object[]} networks - An array of networks. See the `bike-networks.js` file for an example of this array.
  * @returns {Object[]} An array of objects, where each network object has a location in the "US".
- * 
+ *
  * EXAMPLE:
  *  getAllBikeNetworksInTheUS(networks);
  *  //> [
-      {  
+      {
         company: ["Clean Energy Coalition", "BCycle, LLC"],
         gbfs_href: "https://gbfs.bcycle.com/bcycle_arborbike/gbfs.json",
         href: "/v2/networks/arborbike",
@@ -57,7 +64,16 @@ function getAllBikeNetworkNames() {}
       // ...
     ]
  */
-function getAllBikeNetworksInTheUS() {}
+function getAllBikeNetworksInTheUS(networks) {
+  const usNetworks = [];
+  for (let i = 0; i < networks.length; i++) {
+    if (networks[i].location.country === 'US') {
+      usNetworks.push(networks[i])
+    }
+  }
+
+  return usNetworks
+}
 
 /**
  * getBikeNetworkWithLowestLongitude()
@@ -65,7 +81,7 @@ function getAllBikeNetworksInTheUS() {}
  * Returns the bike network which has the smallest value for `longitude`. If there are no networks in the input, returns `null`.
  * @param {Object[]} networks - An array of networks. See the `bike-networks.js` file for an example of this array.
  * @returns {Object} The bike network with the smallest value for `longitude`.
- * 
+ *
  * EXAMPLE:
  *  getBikeNetworkWithLowestLongitude(networks);
  *  //> {
@@ -86,7 +102,18 @@ function getAllBikeNetworksInTheUS() {}
       name: "BIKETOWN",
     }
  */
-function getBikeNetworkWithLowestLongitude() {}
+function getBikeNetworkWithLowestLongitude(networks) {
+  let answer = null;
+  let lowest = 0;
+  for (let i = 0; i < networks.length; i++) {
+    if (networks[i].location.longitude < lowest) {
+      lowest = networks[i].location.longitude;
+      answer = networks[i]
+    }
+  }
+
+  return answer
+}
 
 /**
  * countByCountry()
@@ -101,10 +128,22 @@ function getBikeNetworkWithLowestLongitude() {}
       AU: 2,
       BE: 1,
       BR: 6,
-      // ... 
+      // ...
     }
  */
-function countByCountry() {}
+function countByCountry(networks) {
+  const countries = {};
+  for (let i = 0; i < networks.length; i++) {
+    const country = networks[i].location.country
+    if (countries[country] === undefined) {
+      countries[country] = 1;
+    } else {
+      countries[country]++;
+    }
+  }
+
+  return countries
+}
 
 /**
  * findById()
@@ -134,7 +173,15 @@ function countByCountry() {}
       name: "Indego",
     }
  */
-function findById() {}
+function findById(networks, id) {
+  for (let i = 0; i < networks.length; i++) {
+    if (networks[i].id === id) {
+      return networks[i];
+    }
+  }
+
+  return null
+}
 
 /**
  * filterByCountry()
@@ -143,7 +190,7 @@ function findById() {}
  * @param {Object[]} networks - An array of networks. See the `bike-networks.js` file for an example of this array.
  * @param {String} country - A country name abbreviation
  * @returns {Object[]} An array of objects, where each network object has a location in the matching country.
- * 
+ *
  * EXAMPLE:
  *  filterByCountry(networks, "AU");
  *  //> [
@@ -151,7 +198,16 @@ function findById() {}
       { name: "Monash BikeShare", ... },
     ]
  */
-function filterByCountry() {}
+function filterByCountry(networks, country) {
+  const countryNetworks = []
+  for (let i = 0; i < networks.length; i++) {
+    if (networks[i].location.country === country) {
+      countryNetworks.push(networks[i])
+    }
+  }
+
+  return countryNetworks
+}
 
 /**
  * transformNetworks()
@@ -163,7 +219,7 @@ function filterByCountry() {}
  *  - companies: The network's company array joined together by commas.
  * @param {Object[]} networks - An array of networks. See the `bike-networks.js` file for an example of this array.
  * @returns {Object[]} An array of objects, where each network is transformed in the prescribed way.
- * 
+ *
  * EXAMPLE:
  *  transformNetworks(networks);
  *  //> [
@@ -175,7 +231,7 @@ function filterByCountry() {}
       },
       ...
     ]
- * 
+ *
  * EXAMPLE:
  *  transformNetworks(networks);
  *  //> [
@@ -188,7 +244,22 @@ function filterByCountry() {}
       ...
     ]
  */
-function transformNetworks() {}
+function transformNetworks(networks) {
+  const answer = [];
+  for (let i = 0; i < networks.length; i++) {
+    const network = networks[i];
+    const transformed = {
+      id: network.id,
+      name: network.name,
+      location: network.location.city + ', ' + network.location.country,
+      companies: network.company.join(', ')
+    }
+
+    answer.push(transformed)
+  }
+
+  return answer
+}
 
 module.exports = {
   getAllBikeNetworkNames,
