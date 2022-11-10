@@ -29,7 +29,13 @@ const exampleNetworks = require("./bike-networks");
       // ...
     ];
  */
-function getAllBikeNetworkNames() {}
+function getAllBikeNetworkNames(networks) {
+  const names = [];
+  for (let i = 0; i<networks.length; i++){
+    names.push(networks[i].bike);
+  }
+  return names;
+}
 
 /**
  * getAllBikeNetworksInTheUS()
@@ -57,7 +63,9 @@ function getAllBikeNetworkNames() {}
       // ...
     ]
  */
-function getAllBikeNetworksInTheUS() {}
+function getAllBikeNetworksInTheUS(networks) {
+  
+}
 
 /**
  * getBikeNetworkWithLowestLongitude()
@@ -86,7 +94,16 @@ function getAllBikeNetworksInTheUS() {}
       name: "BIKETOWN",
     }
  */
-function getBikeNetworkWithLowestLongitude() {}
+function getBikeNetworkWithLowestLongitude(networks) {
+  let lowest =0;
+  for (let i =0; i<networks.length; i++){
+    const longitude = Number(networks[i].longitude);
+    if (longitude>lowest){
+      lowest = longitude;
+    }
+  }
+  return null;
+}
 
 /**
  * countByCountry()
@@ -104,7 +121,18 @@ function getBikeNetworkWithLowestLongitude() {}
       // ... 
     }
  */
-function countByCountry() {}
+function countByCountry(networks) {
+  const countries = {};
+  for (let i =0; i <networks.length; i++){
+    const countries = networks[i].country;
+    if (countries[country] === undefined){
+      countries[country] =1;
+    } else {
+      countries[country]++;
+    }
+  }
+  return countries;
+}
 
 /**
  * findById()
@@ -134,7 +162,14 @@ function countByCountry() {}
       name: "Indego",
     }
  */
-function findById() {}
+function findById(networks, id) {
+  for (let i=0; i<networks.length; i++){
+    if(networks[i]===id){
+      return id
+    }
+  }
+  return null
+}
 
 /**
  * filterByCountry()
@@ -151,7 +186,12 @@ function findById() {}
       { name: "Monash BikeShare", ... },
     ]
  */
-function filterByCountry() {}
+function filterByCountry(networks,country) {
+
+
+
+
+}
 
 /**
  * transformNetworks()
