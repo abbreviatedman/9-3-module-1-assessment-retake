@@ -29,7 +29,16 @@ const exampleNetworks = require("./bike-networks");
       // ...
     ];
  */
-function getAllBikeNetworkNames() {}
+// loop through & grab all networks.name values
+// returns an array (.push)
+// if no input return empty array
+function getAllBikeNetworkNames(networks) {
+  let networksArr = []
+  for (let i = 0; i < networks.length; i ++){
+    networksArr.push(networks[i].name)
+  }
+ return networksArr;
+}
 
 /**
  * getAllBikeNetworksInTheUS()
@@ -57,7 +66,18 @@ function getAllBikeNetworkNames() {}
       // ...
     ]
  */
-function getAllBikeNetworksInTheUS() {}
+// returns an array of objects 
+// loop through & check for .location.country
+// if no matches, return empty array 
+function getAllBikeNetworksInTheUS(networks) {
+let USarr = []
+for (let i = 0; i < networks.length; i ++){
+  if (networks.location.country === "US")
+    USarr.push(networks[i])
+   
+} return USarr
+} 
+
 
 /**
  * getBikeNetworkWithLowestLongitude()
@@ -86,7 +106,21 @@ function getAllBikeNetworksInTheUS() {}
       name: "BIKETOWN",
     }
  */
-function getBikeNetworkWithLowestLongitude() {}
+// loop through & find all longitude values
+// create an accumulator to compare values & get the lowest
+// returns an object containing the bike network with smallest value
+// i know i'm getting zero because the smallestNum value isn't being changed
+// i'm comparing the looped values to 0 but i'm not sure how to get the accumulator to hold smallest value
+// i feel like i'm so close to being able to solve this :(
+
+function getBikeNetworkWithLowestLongitude(networks) {
+  let smallestNum = 0
+  for(let i = 0; i < networks.length; i ++){
+    if (networks[i].location.logitude > smallestNum){
+      smallestNum = networks[i]
+    }
+  } return smallestNum
+}
 
 /**
  * countByCountry()
@@ -104,7 +138,22 @@ function getBikeNetworkWithLowestLongitude() {}
       // ... 
     }
  */
-function countByCountry() {}
+// returns an object
+// keys = countries values = # of networks with that country
+// if input array is empty, return {}
+// create empty obj to return 
+// loop through 
+function countByCountry(networks) {
+ let countryObj = {}
+ for (let i = 0; i < networks.length; i ++){
+  let countries = networks[i].country
+  if (countryObj[countries] === undefined){
+    countryObj[countries] = 1 
+  } else {
+      countryObj[countries] ++
+  }
+ } return countryObj;
+}
 
 /**
  * findById()
@@ -134,7 +183,22 @@ function countByCountry() {}
       name: "Indego",
     }
  */
-function findById() {}
+// returns an object based on id
+// if array is empty or no matches return null
+// loop through networks & find matching id (.includes)
+// create empty obj to return 
+function findById(networks,id) {
+  let idMatches = null 
+for (let i = 0; i < networks.length; i ++){
+  if (networks[i].id.includes(id)) {
+    idMatches = networks[i]
+  }
+  } return idMatches
+}
+
+  
+
+
 
 /**
  * filterByCountry()
@@ -151,7 +215,17 @@ function findById() {}
       { name: "Monash BikeShare", ... },
     ]
  */
-function filterByCountry() {}
+// returns an array of objects 
+// loop through & check for matches of country param
+// if no matches, returns empty array
+function filterByCountry(networks, country) {
+  let countryArr = []
+  for (let i = 0; i < networks.length; i++){
+    if (networks[i].location.country.includes(country)){
+      countryArr.push(networks[i])
+    }
+  } return countryArr;
+}
 
 /**
  * transformNetworks()
