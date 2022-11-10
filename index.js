@@ -29,7 +29,15 @@ const exampleNetworks = require("./bike-networks");
       // ...
     ];
  */
-function getAllBikeNetworkNames() {}
+function getAllBikeNetworkNames(networks) {
+  let networkArr = [];
+
+  for (let network of networks) {
+    networkArr.push(network.name);
+  }
+
+  return networkArr;
+}
 
 /**
  * getAllBikeNetworksInTheUS()
@@ -57,7 +65,16 @@ function getAllBikeNetworkNames() {}
       // ...
     ]
  */
-function getAllBikeNetworksInTheUS() {}
+function getAllBikeNetworksInTheUS(networks) {
+  let networkArr = [];
+
+  for (let network of networks) {
+    if (network.location.country === "US"){
+    networkArr.push(network);
+    }
+  } 
+  return networkArr;
+}
 
 /**
  * getBikeNetworkWithLowestLongitude()
@@ -86,7 +103,16 @@ function getAllBikeNetworksInTheUS() {}
       name: "BIKETOWN",
     }
  */
-function getBikeNetworkWithLowestLongitude() {}
+function getBikeNetworkWithLowestLongitude(networks) {
+    
+  for (let network of networks) {
+    let lowestLongitude = Math.min(network.location.longitude);
+    if (lowestLongitude){
+      return network;
+      }
+    }
+  return null;
+}
 
 /**
  * countByCountry()
@@ -104,7 +130,19 @@ function getBikeNetworkWithLowestLongitude() {}
       // ... 
     }
  */
-function countByCountry() {}
+function countByCountry(networks) {
+  let countriesList = {};
+
+  for (let network of networks){
+    let countryLocation = network.location.country;
+    if (countriesList[countryLocation] === undefined) {
+      countriesList[countryLocation] = 1;
+    } else {
+      countriesList[countryLocation]++
+    }
+  }
+  return countriesList;
+}
 
 /**
  * findById()
@@ -134,7 +172,13 @@ function countByCountry() {}
       name: "Indego",
     }
  */
-function findById() {}
+function findById(networks, id) {
+  for (let network of networks) {
+    if (network.id === id){
+      return network;
+    }
+  } return null;
+}
 
 /**
  * filterByCountry()
@@ -151,7 +195,18 @@ function findById() {}
       { name: "Monash BikeShare", ... },
     ]
  */
-function filterByCountry() {}
+function filterByCountry(networks, country) {
+  let networkCountries = [];
+
+  for (let network of networks){
+    let networkCountry = network.location.country; 
+    if(networkCountry === country){
+      networkCountries.push(network);
+    }
+  } 
+
+  return networkCountries;
+}
 
 /**
  * transformNetworks()
@@ -188,7 +243,15 @@ function filterByCountry() {}
       ...
     ]
  */
-function transformNetworks() {}
+function transformNetworks(networks) {
+  let transformedArr = [];
+
+  //for (network of networks) {
+    //return network
+  //}
+  
+  return transformedArr;
+}
 
 module.exports = {
   getAllBikeNetworkNames,
