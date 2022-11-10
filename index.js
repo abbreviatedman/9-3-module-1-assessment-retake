@@ -269,7 +269,6 @@ function transformNetworks(networks) {
     networks.companies = String(networks[i].company)
 delete networks[i].company
 delete networks[i].source
-console.log(networks)
   }
   return results
 }
