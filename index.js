@@ -29,7 +29,14 @@ const exampleNetworks = require("./bike-networks");
       // ...
     ];
  */
-function getAllBikeNetworkNames() {}
+function getAllBikeNetworkNames(networks) {
+  let networkNames = []
+  for(let i = 0; i < networks.length; i++){
+    const networkNames = networks[i].name
+    networks.push(networkNames)
+  }
+ return networkNames
+}
 
 /**
  * getAllBikeNetworksInTheUS()
@@ -57,8 +64,15 @@ function getAllBikeNetworkNames() {}
       // ...
     ]
  */
-function getAllBikeNetworksInTheUS() {}
-
+function getAllBikeNetworksInTheUS(networks) {
+  let usNetworks = []
+  for(let i = 0; i < networks.length; i++){
+    if(networks.country === "US")
+    networks.push(usNetworks)
+    
+  }
+return usNetworks
+}
 /**
  * getBikeNetworkWithLowestLongitude()
  * -----------------------------
@@ -86,12 +100,22 @@ function getAllBikeNetworksInTheUS() {}
       name: "BIKETOWN",
     }
  */
-function getBikeNetworkWithLowestLongitude() {}
+function getBikeNetworkWithLowestLongitude(networks) {
+  let lowest = null
+  for(let i = 0; i < networks.length; i++){
+    if(networks.longitude < lowest){
+      lowest = networks.longitude
+    }
+  }
+return lowest 
+
+}
 
 /**
  * countByCountry()
  * -----------------------------
- * Returns an object where the keys are countries and the values are the number of networks in the array with that country. If the inputted `networks` array is empty, return `{}`.
+ * Returns an object where the keys are countries and the values are the number of networks in the array with that country.
+ *  If the inputted `networks` array is empty, return `{}`.
  * @param {Object[]} networks - An array of networks. See the `bike-networks.js` file for an example of this array.
  * @returns {Object} An object where keys are countries (e.g. "AU") and the values are how many networks in the array are in that country (e.g. 2).
  *
@@ -104,12 +128,23 @@ function getBikeNetworkWithLowestLongitude() {}
       // ... 
     }
  */
-function countByCountry() {}
+function countByCountry(networks) {
+  const countries = {}
+  for(let i = 0; i < networks.length; i++){
+    const count = networks[i].country
+  }if (countries[count] === undefined ){
+    countries[count] = 1
+  }else{
+    countries[count]++
+  }
+  return countries
+}
 
 /**
  * findById()
  * -----------------------------
- * Returns a network object from an array of objects based on the ID. If the inputted `networks` array is empty or the ID does not match any bike network, return `null`.
+ * Returns a network object from an array of objects based on the ID. 
+ * If the inputted `networks` array is empty or the ID does not match any bike network, return `null`.
  * @param {Object[]} networks - An array of networks. See the `bike-networks.js` file for an example of this array.
  * @param {string} id - A unique `id`.
  * @returns {Object|null} The network object with the matching `id`.
@@ -134,12 +169,21 @@ function countByCountry() {}
       name: "Indego",
     }
  */
-function findById() {}
+function findById(networks, id) {
+let found = null
+for(let i= 0; i < networks.length; i++){
+  if(networks[i].id === id){
+    found = networks[i]
+  }
+}
+return found 
+}
 
 /**
  * filterByCountry()
  * -----------------------------
- * Returns an array of network objects where the network country matches the inputted `country`. If there are no matching objects, or the input is empty, return an empty array.
+ * Returns an array of network objects where the network country matches the inputted `country`.
+ *  If there are no matching objects, or the input is empty, return an empty array.
  * @param {Object[]} networks - An array of networks. See the `bike-networks.js` file for an example of this array.
  * @param {String} country - A country name abbreviation
  * @returns {Object[]} An array of objects, where each network object has a location in the matching country.
@@ -151,7 +195,15 @@ function findById() {}
       { name: "Monash BikeShare", ... },
     ]
  */
-function filterByCountry() {}
+function filterByCountry(networks, country) {
+  const countryName = []
+  for(let i = 0; i < networks.length; i++){
+    if (country === networks.country)
+    countryName.push(networks.country)
+  }
+return countryName
+
+}
 
 /**
  * transformNetworks()
@@ -188,7 +240,9 @@ function filterByCountry() {}
       ...
     ]
  */
-function transformNetworks() {}
+function transformNetworks(networks) {
+
+}
 
 module.exports = {
   getAllBikeNetworkNames,
